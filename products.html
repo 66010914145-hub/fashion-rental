@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สินค้า - Fashion Rental</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sarabun', sans-serif; }
+        .card-hover { transition: transform 0.3s, box-shadow 0.3s; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- Header -->
+<header class="bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-gray-800">Fashion Rental</h1>
+        <nav class="space-x-4">
+            <a href="index.html" class="text-gray-600 hover:text-purple-600">หน้าแรก</a>
+            <a href="products.html" class="text-gray-600 hover:text-purple-600">สินค้า</a>
+            <button id="loginBtn" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">เข้าสู่ระบบ</button>
+        </nav>
+    </div>
+</header>
+
+<!-- Products Section -->
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">สินค้า</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Product 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover p-6">
+                <div class="h-64 flex items-center justify-center overflow-hidden rounded-lg mb-4">
+                    <img src="https://cf.shopee.co.th/file/cn-11134207-7r98o-lvsni1zpa9gn7f" alt="ชุดราตรีสีดำ" class="object-cover w-full h-full">
+                </div>
+                <h4 class="font-semibold text-lg mb-2 product-name">ชุดราตรีสีดำ</h4>
+                <p class="text-gray-600 text-sm mb-3">แบรนด์ Zara • ไซส์ S-M</p>
+
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-semibold mb-1">วันที่เช่าเริ่ม</label>
+                    <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded rentStartDate">
+                </div>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-semibold mb-1">จำนวนวันเช่า</label>
+                    <input type="number" min="1" value="3" class="w-full px-3 py-2 border border-gray-300 rounded rentDays">
+                </div>
+
+                <div class="flex items-center justify-between mt-2">
+                    <div>
+                        <span class="text-2xl font-bold text-purple-600 product-price">฿599</span>
+                        <span class="text-sm text-gray-500">/3 วัน</span>
+                    </div>
+                    <button class="rent-button bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">เช่า</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover p-6">
+                <div class="h-64 flex items-center justify-center overflow-hidden rounded-lg mb-4">
+                    <img src="https://i.pinimg.com/1200x/a7/e1/ae/a7e1aed530d4777bd280a65df4ed8647.jpg" alt="เดรสสวยผู้หญิง" class="object-cover w-full h-full">
+                </div>
+                <h4 class="font-semibold text-lg mb-2 product-name">เดรสสวยผู้หญิง</h4>
+                <p class="text-gray-600 text-sm mb-3">แบรนด์ H&M • ไซส์ M-L</p>
+
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-semibold mb-1">วันที่เช่าเริ่ม</label>
+                    <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded rentStartDate">
+                </div>
+                <div class="mb-2">
+                    <label class="block text-gray-700 text-sm font-semibold mb-1">จำนวนวันเช่า</label>
+                    <input type="number" min="1" value="3" class="w-full px-3 py-2 border border-gray-300 rounded rentDays">
+                </div>
+
+                <div class="flex items-center justify-between mt-2">
+                    <div>
+                        <span class="text-2xl font-bold text-purple-600 product-price">฿699</span>
+                        <span class="text-sm text-gray-500">/3 วัน</span>
+                    </div>
+                    <button class="rent-button bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">เช่า</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Login/Register Modal -->
+<div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-xl p-8 max-w-md w-full">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800">เข้าสู่ระบบ</h3>
+            <button id="closeLogin" class="text-gray-500 hover:text-gray-700">&times;</button>
+        </div>
+        <form id="loginForm">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label>
+                <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label>
+                <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+            </div>
+            <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700">เข้าสู่ระบบ</button>
+            <p class="text-center text-gray-600 mt-4">ยังไม่มีบัญชี? <a href="#" class="text-purple-600 hover:underline" id="showRegister">สมัครสมาชิก</a></p>
+        </form>
+    </div>
+</div>
+
+<div id="registerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-xl p-8 max-w-md w-full">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800">สมัครสมาชิก</h3>
+            <button id="closeRegister" class="text-gray-500 hover:text-gray-700">&times;</button>
+        </div>
+        <form id="registerForm">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล</label>
+                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label>
+                <input type="email" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label>
+                <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+            </div>
+            <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700">สมัครสมาชิก</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // เปิด/ปิด Modal
+    const loginBtn = document.getElementById('loginBtn');
+    const loginModal = document.getElementById('loginModal');
+    const closeLogin = document.getElementById('closeLogin');
+    const registerModal = document.getElementById('registerModal');
+    const closeRegister = document.getElementById('closeRegister');
+    const showRegister = document.getElementById('showRegister');
+
+    loginBtn.addEventListener('click', () => loginModal.classList.remove('hidden'));
+    closeLogin.addEventListener('click', () => loginModal.classList.add('hidden'));
+    showRegister.addEventListener('click', () => {
+        loginModal.classList.add('hidden');
+        registerModal.classList.remove('hidden');
+    });
+    closeRegister.addEventListener('click', () => registerModal.classList.add('hidden'));
+</script>
+
+</body>
+</html>
