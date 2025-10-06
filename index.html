@@ -577,4 +577,579 @@
 </body>
 
 </html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แดชบอร์ด - ระบบจัดการเช่าชุดเสื้อ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .stat-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+        }
+        
+        .sidebar-active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .tab-active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Sidebar -->
+    <div class="flex h-screen">
+        <div class="w-64 bg-white shadow-lg">
+            <div class="p-6 gradient-bg text-white">
+                <h1 class="text-2xl font-bold">👗 DressRental</h1>
+                <p class="text-sm text-purple-100">ระบบจัดการ</p>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="#" class="sidebar-active flex items-center px-6 py-3 text-gray-700 hover:bg-purple-50 transition duration-300" onclick="showTab('dashboard')">
+                    <span class="mr-3">📊</span>
+                    แดชบอร์ด
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-purple-50 transition duration-300" onclick="showTab('orders')">
+                    <span class="mr-3">📋</span>
+                    คำสั่งเช่า
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-purple-50 transition duration-300" onclick="showTab('inventory')">
+                    <span class="mr-3">👗</span>
+                    คลังชุดเสื้อ
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-purple-50 transition duration-300" onclick="showTab('customers')">
+                    <span class="mr-3">👥</span>
+                    ลูกค้า
+                </a>
+                <a href="#" class="flex items-center px-6 py-3 text-gray-700 hover:bg-purple-50 transition duration-300" onclick="showTab('reports')">
+                    <span class="mr-3">📈</span>
+                    รายงาน
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-white shadow-sm border-b">
+                <div class="flex justify-between items-center px-6 py-4">
+                    <h2 class="text-2xl font-bold text-gray-800" id="pageTitle">แดชบอร์ด</h2>
+                    <div class="flex items-center space-x-4">
+                        <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">
+                            🔔 แจ้งเตือน (3)
+                        </button>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                                A
+                            </div>
+                            <span class="text-gray-700 font-medium">ผู้ดูแลระบบ</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div id="dashboard" class="tab-content p-6">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="stat-card p-6 rounded-xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-600 text-sm font-medium">ยอดขายวันนี้</p>
+                                <p class="text-3xl font-bold text-green-600">฿15,750</p>
+                                <p class="text-green-500 text-sm">↗️ +12.5%</p>
+                            </div>
+                            <div class="text-4xl">💰</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card p-6 rounded-xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-600 text-sm font-medium">การเช่าวันนี้</p>
+                                <p class="text-3xl font-bold text-blue-600">23</p>
+                                <p class="text-blue-500 text-sm">↗️ +8.3%</p>
+                            </div>
+                            <div class="text-4xl">📦</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card p-6 rounded-xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-600 text-sm font-medium">ลูกค้าใหม่</p>
+                                <p class="text-3xl font-bold text-purple-600">7</p>
+                                <p class="text-purple-500 text-sm">↗️ +15.2%</p>
+                            </div>
+                            <div class="text-4xl">👥</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card p-6 rounded-xl shadow-lg card-hover fade-in">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-600 text-sm font-medium">ชุดที่ให้เช่า</p>
+                                <p class="text-3xl font-bold text-orange-600">156</p>
+                                <p class="text-orange-500 text-sm">↗️ +3.1%</p>
+                            </div>
+                            <div class="text-4xl">👗</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg fade-in">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">ยอดขายรายเดือน</h3>
+                        <canvas id="salesChart" width="400" height="200"></canvas>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg fade-in">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">ชุดยอดนิยม</h3>
+                        <canvas id="popularChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="bg-white rounded-xl shadow-lg fade-in">
+                    <div class="p-6 border-b">
+                        <h3 class="text-xl font-bold text-gray-800">คำสั่งเช่าล่าสุด</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">รหัส</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ลูกค้า</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ชุดเสื้อ</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">วันที่เช่า</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ราคา</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">สถานะ</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">#DR001</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">นางสาวสมใจ ใจดี</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">ชุดเจ้าสาวคลาสสิค</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">15/12/2024</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">฿2,500</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                            ชำระแล้ว
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">#DR002</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">นางสาวมาลี สวยงาม</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">ชุดปาร์ตี้เซ็กซี่</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">16/12/2024</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">฿1,200</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                            รอชำระ
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">#DR003</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">นางสาวจิรา ทำงาน</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">ชุดทำงานหรู</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">17/12/2024</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">฿800</td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                                            กำลังเตรียม
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Content -->
+            <div id="orders" class="tab-content p-6 hidden">
+                <div class="bg-white rounded-xl shadow-lg">
+                    <div class="p-6 border-b flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-gray-800">จัดการคำสั่งเช่า</h3>
+                        <div class="flex space-x-2">
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">
+                                ✅ ทั้งหมด
+                            </button>
+                            <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-300">
+                                ⏳ รอชำระ
+                            </button>
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                                📦 กำลังเตรียม
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <div class="border rounded-lg p-4 hover:bg-gray-50 transition duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">#DR004 - นางสาวสุดา แสงใส</h4>
+                                        <p class="text-gray-600">ชุดเจ้าสาวหรูหรา | วันที่เช่า: 20/12/2024</p>
+                                        <p class="text-green-600 font-semibold">฿3,000</p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition duration-300">
+                                            ดูรายละเอียด
+                                        </button>
+                                        <button class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition duration-300">
+                                            อนุมัติ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded-lg p-4 hover:bg-gray-50 transition duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="font-bold text-gray-800">#DR005 - นางสาวนิดา สนุกสนาน</h4>
+                                        <p class="text-gray-600">ชุดราตรีทอง | วันที่เช่า: 22/12/2024</p>
+                                        <p class="text-green-600 font-semibold">฿1,500</p>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition duration-300">
+                                            ดูรายละเอียด
+                                        </button>
+                                        <button class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600 transition duration-300">
+                                            รอชำระ
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Content -->
+            <div id="inventory" class="tab-content p-6 hidden">
+                <div class="bg-white rounded-xl shadow-lg">
+                    <div class="p-6 border-b flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-gray-800">คลังชุดเสื้อ</h3>
+                        <button class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition duration-300">
+                            ➕ เพิ่มชุดใหม่
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="border rounded-lg p-4 hover:shadow-lg transition duration-300">
+                                <div class="h-32 bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg flex items-center justify-center mb-4">
+                                    <div class="text-4xl">👰</div>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2">ชุดเจ้าสาวคลาสสิค</h4>
+                                <p class="text-gray-600 text-sm mb-2">ราคา: ฿2,500/วัน</p>
+                                <p class="text-gray-600 text-sm mb-4">สถานะ: ✅ พร้อมให้เช่า</p>
+                                <div class="flex space-x-2">
+                                    <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition duration-300">
+                                        แก้ไข
+                                    </button>
+                                    <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition duration-300">
+                                        ลบ
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded-lg p-4 hover:shadow-lg transition duration-300">
+                                <div class="h-32 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mb-4">
+                                    <div class="text-4xl">🎉</div>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2">ชุดปาร์ตี้เซ็กซี่</h4>
+                                <p class="text-gray-600 text-sm mb-2">ราคา: ฿1,200/วัน</p>
+                                <p class="text-red-600 text-sm mb-4">สถานะ: ❌ ให้เช่าแล้ว</p>
+                                <div class="flex space-x-2">
+                                    <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition duration-300">
+                                        แก้ไข
+                                    </button>
+                                    <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition duration-300">
+                                        ลบ
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="border rounded-lg p-4 hover:shadow-lg transition duration-300">
+                                <div class="h-32 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mb-4">
+                                    <div class="text-4xl">💼</div>
+                                </div>
+                                <h4 class="font-bold text-gray-800 mb-2">ชุดทำงานหรู</h4>
+                                <p class="text-gray-600 text-sm mb-2">ราคา: ฿800/วัน</p>
+                                <p class="text-gray-600 text-sm mb-4">สถานะ: ✅ พร้อมให้เช่า</p>
+                                <div class="flex space-x-2">
+                                    <button class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600 transition duration-300">
+                                        แก้ไข
+                                    </button>
+                                    <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition duration-300">
+                                        ลบ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers Content -->
+            <div id="customers" class="tab-content p-6 hidden">
+                <div class="bg-white rounded-xl shadow-lg">
+                    <div class="p-6 border-b">
+                        <h3 class="text-xl font-bold text-gray-800">ข้อมูลลูกค้า</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ชื่อ</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">อีเมล</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">โทรศัพท์</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">จำนวนการเช่า</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ยอดรวม</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">นางสาวสมใจ ใจดี</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">somjai@email.com</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">081-234-5678</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">5 ครั้ง</td>
+                                    <td class="px-6 py-4 text-sm text-green-600 font-semibold">฿8,500</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">นางสาวมาลี สวยงาม</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">malee@email.com</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">082-345-6789</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">3 ครั้ง</td>
+                                    <td class="px-6 py-4 text-sm text-green-600 font-semibold">฿4,200</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">นางสาวจิรา ทำงาน</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">jira@email.com</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">083-456-7890</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900">2 ครั้ง</td>
+                                    <td class="px-6 py-4 text-sm text-green-600 font-semibold">฿1,600</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Content -->
+            <div id="reports" class="tab-content p-6 hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">รายงานรายได้</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-gray-700">รายได้วันนี้</span>
+                                <span class="font-bold text-green-600">฿15,750</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-gray-700">รายได้สัปดาห์นี้</span>
+                                <span class="font-bold text-green-600">฿89,250</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-gray-700">รายได้เดือนนี้</span>
+                                <span class="font-bold text-green-600">฿342,800</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">รายงานการเช่า</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-gray-700">การเช่าวันนี้</span>
+                                <span class="font-bold text-blue-600">23 ครั้ง</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-gray-700">การเช่าสัปดาห์นี้</span>
+                                <span class="font-bold text-blue-600">156 ครั้ง</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                                <span class="text-gray-700">การเช่าเดือนนี้</span>
+                                <span class="font-bold text-blue-600">687 ครั้ง</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 mt-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">ชุดยอดนิยม</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 border-l-4 border-purple-500 bg-purple-50">
+                            <span class="text-gray-700">ชุดเจ้าสาวคลาสสิค</span>
+                            <span class="font-bold text-purple-600">45 ครั้ง</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 border-l-4 border-pink-500 bg-pink-50">
+                            <span class="text-gray-700">ชุดปาร์ตี้เซ็กซี่</span>
+                            <span class="font-bold text-pink-600">32 ครั้ง</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 border-l-4 border-blue-500 bg-blue-50">
+                            <span class="text-gray-700">ชุดราตรีทอง</span>
+                            <span class="font-bold text-blue-600">28 ครั้ง</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching function
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.remove('hidden');
+            
+            // Update sidebar active state
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('sidebar-active');
+            });
+            event.target.classList.add('sidebar-active');
+            
+            // Update page title
+            const titles = {
+                'dashboard': 'แดชบอร์ด',
+                'orders': 'จัดการคำสั่งเช่า',
+                'inventory': 'คลังชุดเสื้อ',
+                'customers': 'ข้อมูลลูกค้า',
+                'reports': 'รายงาน'
+            };
+            document.getElementById('pageTitle').textContent = titles[tabName];
+        }
+
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.'],
+                    datasets: [{
+                        label: 'ยอดขาย (บาท)',
+                        data: [285000, 320000, 298000, 345000, 380000, 420000],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '฿' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Popular Dresses Chart
+            const popularCtx = document.getElementById('popularChart').getContext('2d');
+            new Chart(popularCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ชุดแต่งงาน', 'ชุดปาร์ตี้', 'ชุดทำงาน', 'ชุดลำลอง'],
+                    datasets: [{
+                        data: [45, 32, 18, 25],
+                        backgroundColor: [
+                            '#ff6b6b',
+                            '#4ecdc4',
+                            '#45b7d1',
+                            '#96ceb4'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+
+        // Fade in animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a5207e62ae1d37',t:'MTc1OTc1MzM3NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
+
 
