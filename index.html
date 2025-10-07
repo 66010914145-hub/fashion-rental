@@ -6,52 +6,17 @@
     <title>Fashion Rental - เช่าเสื้อผ้าแฟชั่นออนไลน์</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            box-sizing: border-box;
-            font-family: 'Sarabun', sans-serif;
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-        .hero-bg {
-            background-image: url('Fashion Rental.jpg');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            color: #fff;
-        }
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-        .hero-bg > div {
-            position: relative;
-            z-index: 2;
-        }
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
+        html { scroll-behavior: smooth; }
+        body { box-sizing: border-box; font-family: 'Sarabun', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .hero-bg { background-color: #E0F7FA; color: #333; }
+        header { background-color: #F3E5F5; }
+        .hero-bg > div, .hero-bg::before { position: relative; z-index: 2; }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+        #searchBar.hidden { display: none; }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +24,7 @@
 </head>
 <body class="bg-gray-50">
 
-    <header class="bg-pink-100 shadow-lg sticky top-0 z-50">
+    <header class="shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
@@ -68,24 +33,21 @@
                     </div>
                     <h1 class="text-2xl font-bold text-gray-800">Fashion Rental</h1>
                 </div>
-                <nav class="hidden md:flex space-x-8">
+                <nav class="hidden md:flex space-x-8 items-center">
                     <a href="#" class="text-gray-600 hover:text-purple-600 transition-colors">หน้าแรก</a>
                     <a href="#women" class="text-gray-600 hover:text-purple-600 transition-colors">เสื้อผ้าผู้หญิง</a>
                     <a href="#men" class="text-gray-600 hover:text-purple-600 transition-colors">เสื้อผ้าผู้ชาย</a>
+                     <div id="searchBar" class="relative hidden">
+                        <input type="text" id="searchInput" placeholder="ค้นหาชื่อสินค้าหรือแบรนด์..." class="px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-purple-400 w-64">
+                    </div>
                 </nav>
                 <div class="flex items-center space-x-4">
-                    <button id="adminButton" class="text-sm px-3 py-1 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
-                        Admin
-                    </button>
-                    <button class="p-2 text-gray-600 hover:text-purple-600 transition-colors" aria-label="Search">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+                    <button id="adminButton" class="text-sm px-3 py-1 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">Admin</button>
+                    <button id="searchButton" class="p-2 text-gray-600 hover:text-purple-600 transition-colors" aria-label="Search">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                     <button id="cartButton" class="p-2 text-gray-600 hover:text-purple-600 transition-colors relative" aria-label="Shopping Cart">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L4.5 18M7 13h10m0 0l-2.5 5m-4.5-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
-                        </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L4.5 18M7 13h10m0 0l-2.5 5m-4.5-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" /></svg>
                         <span id="cartCounter" class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                     </button>
                     <div class="relative">
@@ -102,13 +64,11 @@
     </header>
 
     <main id="mainContent">
-        <section id="hero-banner" class="hero-bg text-white py-24 md:py-36 text-center">
+        <section id="hero-banner" class="hero-bg py-24 md:py-36 text-center">
             <div class="container mx-auto px-4 fade-in">
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">เช่าแฟชั่นแบรนด์ดัง ไม่ต้องซื้อ!</h2>
-                <p class="text-xl md:text-2xl mb-8 font-light drop-shadow-lg">เปลี่ยนชุดได้ไม่ซ้ำ ในราคาประหยัดและรักษ์โลก</p>
-                <button class="bg-purple-600 text-white font-bold px-8 py-3 rounded-full text-lg hover:bg-purple-700 transition-transform transform hover:scale-105 shadow-xl">
-                    เริ่มเช่าเลย
-                </button>
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg text-gray-800">เช่าแฟชั่นแบรนด์ดัง ไม่ต้องซื้อ!</h2>
+                <p class="text-xl md:text-2xl mb-8 font-light drop-shadow-lg text-gray-700">เปลี่ยนชุดได้ไม่ซ้ำ ในราคาประหยัดและรักษ์โลก</p>
+                <button class="bg-purple-600 text-white font-bold px-8 py-3 rounded-full text-lg hover:bg-purple-700 transition-transform transform hover:scale-105 shadow-xl">เริ่มเช่าเลย</button>
             </div>
         </section>
 
@@ -117,16 +77,12 @@
                 <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">เลือกชมหมวดหมู่เสื้อผ้า</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-xl mx-auto">
                     <a href="#women" class="text-center card-hover cursor-pointer p-6 rounded-xl border border-gray-200">
-                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-pink-400 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                            <span class="text-4xl">♀️</span>
-                        </div>
+                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-pink-400 to-purple-600 rounded-full flex items-center justify-center shadow-lg"><span class="text-4xl">♀️</span></div>
                         <h4 class="text-xl font-semibold mb-2 text-gray-800">เสื้อผ้าผู้หญิง</h4>
                         <p class="text-gray-600 text-sm">เดรส เสื้อ กระโปรง กางเกง</p>
                     </a>
                     <a href="#men" class="text-center card-hover cursor-pointer p-6 rounded-xl border border-gray-200">
-                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
-                            <span class="text-4xl">♂️</span>
-                        </div>
+                        <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center shadow-lg"><span class="text-4xl">♂️</span></div>
                         <h4 class="text-xl font-semibold mb-2 text-gray-800">เสื้อผ้าผู้ชาย</h4>
                         <p class="text-gray-600 text-sm">เสื้อยืด เสื้อเชิ้ต กางเกง</p>
                     </a>
@@ -155,16 +111,14 @@
         <section class="py-16 bg-white" id="women">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">เสื้อผ้าผู้หญิง</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8" id="women-product-list">
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8" id="women-product-list"></div>
             </div>
         </section>
 
         <section class="py-16 bg-gray-50" id="men">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">เสื้อผ้าผู้ชาย</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8" id="men-product-list">
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8" id="men-product-list"></div>
             </div>
         </section>
     </main>
@@ -176,14 +130,8 @@
                 <button id="closeLogin" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
             </div>
             <form id="loginForm">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label>
-                    <input type="email" id="loginEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label>
-                    <input type="password" id="loginPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required>
-                </div>
+                <div class="mb-4"><label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label><input type="email" id="loginEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required></div>
+                <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label><input type="password" id="loginPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required></div>
                 <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">เข้าสู่ระบบ</button>
                 <p class="text-center text-gray-600 mt-4">ยังไม่มีบัญชี? <a href="#" id="showRegister" class="text-purple-600 hover:underline">สมัครสมาชิก</a></p>
             </form>
@@ -197,18 +145,9 @@
                 <button id="closeRegister" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
             </div>
             <form id="registerForm">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล</label>
-                    <input type="text" id="registerName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label>
-                    <input type="email" id="registerEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label>
-                    <input type="password" id="registerPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required>
-                </div>
+                <div class="mb-4"><label class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล</label><input type="text" id="registerName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required></div>
+                <div class="mb-4"><label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label><input type="email" id="registerEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required></div>
+                <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label><input type="password" id="registerPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required></div>
                 <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">สมัครสมาชิก</button>
                 <p class="text-center text-gray-600 mt-4">มีบัญชีแล้ว? <a href="#" id="showLogin" class="text-purple-600 hover:underline">เข้าสู่ระบบ</a></p>
             </form>
@@ -222,68 +161,36 @@
                 <button id="closeEditProfile" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
             </div>
             <form id="editProfileForm">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล</label>
-                    <input type="text" id="editName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label>
-                    <input type="email" id="editEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600" required>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่านใหม่ (ไม่บังคับ)</label>
-                    <input type="password" id="editPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
-                </div>
-                <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">บันทึกการเปลี่ยนแปลง</button>
+                <div class="mb-4"><label class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล</label><input type="text" id="editName" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required></div>
+                <div class="mb-4"><label class="block text-gray-700 text-sm font-bold mb-2">อีเมล</label><input type="email" id="editEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg" required></div>
+                <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่านใหม่ (ไม่บังคับ)</label><input type="password" id="editPassword" class="w-full px-3 py-2 border border-gray-300 rounded-lg"></div>
+                <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">บันทึก</button>
             </form>
         </div>
     </div>
     
     <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl p-8 max-w-lg w-full">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">ตะกร้าสินค้า</h3>
-                <button id="closeCart" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
-            </div>
-            <div id="cartItemsContainer" class="max-h-96 overflow-y-auto mb-4">
-                 <p id="emptyCartMsg" class="text-gray-500 text-center">ตะกร้าของคุณว่างเปล่า</p>
-            </div>
-             <div class="border-t pt-4">
-                <div class="flex justify-between items-center text-xl font-bold">
-                    <span>ยอดรวม:</span>
-                    <span id="cartTotal">฿0</span>
-                </div>
-                <button id="checkoutButton" class="mt-4 w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400">ชำระเงิน</button>
+            <div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-gray-800">ตะกร้าสินค้า</h3><button id="closeCart" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button></div>
+            <div id="cartItemsContainer" class="max-h-96 overflow-y-auto mb-4"><p id="emptyCartMsg" class="text-gray-500 text-center">ตะกร้าของคุณว่างเปล่า</p></div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between items-center text-xl font-bold"><span>ยอดรวม:</span><span id="cartTotal">฿0</span></div>
+                <button id="checkoutButton" class="mt-4 w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 disabled:bg-gray-400">ชำระเงิน</button>
             </div>
         </div>
     </div>
 
     <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl p-8 max-w-md w-full">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">ยืนยันการสั่งเช่า</h3>
-                <button id="closeCheckout" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
-            </div>
-            <div id="checkoutSummary" class="mb-6 border-b pb-4">
-            </div>
+            <div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-gray-800">ยืนยันการสั่งเช่า</h3><button id="closeCheckout" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button></div>
+            <div id="checkoutSummary" class="mb-6 border-b pb-4"></div>
             <form id="paymentForm">
                 <h4 class="text-lg font-semibold mb-3">เลือกวิธีชำระเงิน</h4>
                 <div class="space-y-3">
-                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50">
-                        <input type="radio" name="paymentMethod" value="cod" class="mr-3" checked>
-                        <span>เก็บเงินปลายทาง (Cash on Delivery)</span>
-                    </label>
-                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50">
-                        <input type="radio" name="paymentMethod" value="transfer" class="mr-3">
-                        <span>โอนผ่านธนาคาร (Bank Transfer)</span>
-                    </label>
+                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50"><input type="radio" name="paymentMethod" value="cod" class="mr-3" checked><span>เก็บเงินปลายทาง</span></label>
+                    <label class="flex items-center p-3 border rounded-lg hover:bg-gray-50"><input type="radio" name="paymentMethod" value="transfer" class="mr-3"><span>โอนผ่านธนาคาร</span></label>
                 </div>
-                <div id="bankInfo" class="hidden mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm">
-                    <p class="font-bold">กรุณาโอนเงินมาที่:</p>
-                    <p>ธนาคาร: กสิกรไทย</p>
-                    <p>ชื่อบัญชี: บริษัท แฟชั่นเรนทัล จำกัด</p>
-                    <p>เลขที่บัญชี: 123-4-56789-0</p>
-                </div>
+                <div id="bankInfo" class="hidden mt-4 p-4 bg-blue-50 border-blue-200 rounded-lg text-sm"><p class="font-bold">กรุณาโอนเงินมาที่:</p><p>ธนาคาร: กสิกรไทย</p><p>ชื่อบัญชี: บจก. แฟชั่นเรนทัล</p><p>เลขที่บัญชี: 123-4-56789-0</p></div>
                 <button type="submit" class="mt-6 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">ยืนยันและดำเนินการต่อ</button>
             </form>
         </div>
@@ -291,23 +198,11 @@
     
     <div id="addressModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl p-8 max-w-md w-full">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">ที่อยู่สำหรับจัดส่ง</h3>
-                <button id="closeAddress" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
-            </div>
+            <div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-gray-800">ที่อยู่สำหรับจัดส่ง</h3><button id="closeAddress" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button></div>
             <form id="addressForm">
-                <div class="mb-3">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล ผู้รับ</label>
-                    <input type="text" class="w-full px-3 py-2 border rounded-lg" required>
-                </div>
-                <div class="mb-3">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">ที่อยู่</label>
-                    <textarea class="w-full px-3 py-2 border rounded-lg" rows="3" required></textarea>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">เบอร์โทรศัพท์</label>
-                    <input type="tel" class="w-full px-3 py-2 border rounded-lg" required>
-                </div>
+                <div class="mb-3"><label class="block text-gray-700 text-sm font-bold mb-2">ชื่อ-นามสกุล ผู้รับ</label><input type="text" class="w-full px-3 py-2 border rounded-lg" required></div>
+                <div class="mb-3"><label class="block text-gray-700 text-sm font-bold mb-2">ที่อยู่</label><textarea class="w-full px-3 py-2 border rounded-lg" rows="3" required></textarea></div>
+                <div class="mb-4"><label class="block text-gray-700 text-sm font-bold mb-2">เบอร์โทรศัพท์</label><input type="tel" class="w-full px-3 py-2 border rounded-lg" required></div>
                 <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">ยืนยันที่อยู่</button>
             </form>
         </div>
@@ -316,71 +211,77 @@
     <div id="thankYouModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl p-12 text-center max-w-md w-full">
             <h3 class="text-3xl font-bold text-green-500 mb-4">ขอบคุณค่ะ!</h3>
-            <p class="text-gray-700 mb-6">การสั่งเช่าของคุณเสร็จสมบูรณ์แล้ว เราจะรีบดำเนินการจัดส่งให้โดยเร็วที่สุด</p>
+            <p class="text-gray-700 mb-6">การสั่งเช่าของคุณเสร็จสมบูรณ์แล้ว</p>
             <button id="closeThankYou" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">กลับสู่หน้าหลัก</button>
         </div>
     </div>
     
     <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-xl p-8 max-w-md w-full">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Admin Login</h3>
-                <button id="closeAdminLogin" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
-            </div>
+            <div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-gray-800">Admin Login</h3><button id="closeAdminLogin" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button></div>
             <form id="adminLoginForm">
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">ชื่อผู้ใช้</label>
-                    <input type="text" id="adminUsername" class="w-full px-3 py-2 border rounded-lg" required>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label>
-                    <input type="password" id="adminPassword" class="w-full px-3 py-2 border rounded-lg" required>
-                </div>
+                <div class="mb-4"><label class="block text-gray-700 text-sm font-bold mb-2">ชื่อผู้ใช้</label><input type="text" id="adminUsername" class="w-full px-3 py-2 border rounded-lg" required></div>
+                <div class="mb-6"><label class="block text-gray-700 text-sm font-bold mb-2">รหัสผ่าน</label><input type="password" id="adminPassword" class="w-full px-3 py-2 border rounded-lg" required></div>
                 <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">เข้าสู่ระบบ</button>
             </form>
         </div>
     </div>
     
     <div id="adminDashboardModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl p-8 max-w-4xl w-full">
+        <div class="bg-white rounded-xl p-8 max-w-6xl w-full max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">จัดการสินค้า (Dashboard)</h3>
+                <h3 class="text-2xl font-bold text-gray-800">จัดการสินค้า (Admin Dashboard)</h3>
                 <button id="closeAdminDashboard" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[60vh] overflow-y-auto pr-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <h4 class="text-lg font-semibold mb-3 border-b pb-2">สินค้าในสต็อก (Available)</h4>
-                    <div id="stockList" class="space-y-3 text-sm">
-                    </div>
+                    <div id="stockList" class="space-y-3 text-sm max-h-[40vh] overflow-y-auto pr-2"></div>
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold mb-3 border-b pb-2">สินค้าที่ถูกเช่าอยู่ (Rented)</h4>
-                    <div id="rentedList" class="space-y-3 text-sm">
-                    </div>
+                    <div id="rentedList" class="space-y-3 text-sm max-h-[40vh] overflow-y-auto pr-2"></div>
                 </div>
             </div>
-            <div class="mt-6 border-t pt-4 flex justify-end">
-                <button id="adminLogoutButton" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">ออกจากระบบ Admin</button>
+            <div class="mt-8 border-t pt-6">
+                <h4 class="text-xl font-bold mb-4 text-gray-800">เพิ่มสินค้าในสต็อก</h4>
+                <form id="addProductForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                    <div><label for="newProductName" class="block font-medium text-gray-700">ชื่อสินค้า</label><input type="text" id="newProductName" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
+                    <div><label for="newProductBrand" class="block font-medium text-gray-700">แบรนด์</label><input type="text" id="newProductBrand" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
+                    <div><label for="newProductCategory" class="block font-medium text-gray-700">หมวดหมู่</label><select id="newProductCategory" required class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"><option value="women">ผู้หญิง</option><option value="men">ผู้ชาย</option></select></div>
+                    <div><label for="newProductPrice" class="block font-medium text-gray-700">ราคา (บาท/3 วัน)</label><input type="number" id="newProductPrice" min="0" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
+                    <div class="md:col-span-2"><label for="newProductImageUrl" class="block font-medium text-gray-700">URL รูปภาพ</label><input type="url" id="newProductImageUrl" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></div>
+                    <div class="md:col-span-2"><label for="newProductInventory" class="block font-medium text-gray-700">ไซส์และจำนวน</label><input type="text" id="newProductInventory" required placeholder="ตัวอย่าง: S:5, M:10, L:3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"><p class="text-xs text-gray-500 mt-1">ใช้จุลภาค (,) คั่นระหว่างไซส์</p></div>
+                    <div class="md:col-span-3 flex justify-end"><button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">เพิ่มสินค้า</button></div>
+                </form>
             </div>
+            <div class="mt-6 border-t pt-4 flex justify-end"><button id="adminLogoutButton" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">ออกจากระบบ Admin</button></div>
         </div>
     </div>
+
+    <div id="rentalHistoryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl p-8 max-w-2xl w-full">
+            <div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-gray-800">ประวัติการเช่าของคุณ</h3><button id="closeRentalHistory" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button></div>
+            <div id="rentalHistoryContainer" class="max-h-96 overflow-y-auto space-y-4"></div>
+        </div>
+    </div>
+
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
 
         let userDatabase = []; 
-        
         let productDatabase = [
-            { id: 1, category: 'women', name: 'เดรสสั้นลายดอก', brand: 'Pomelo', price: 190, imageUrl: 'https://img.lazcdn.com/g/p/4145bb1065cf1ab997a392cc67cfbe18.jpg_720x720q80.jpg', inventory: { 'S': { total: 3, rented: 0 }, 'M': { total: 3, rented: 0 } }, rentals: [] },
-            { id: 2, category: 'women', name: 'กางเกงยีนส์ขากว้าง', brand: 'Levi\'s', price: 200, imageUrl: 'https://img.lazcdn.com/g/p/45854c6581e9d27e4f863b20752f91a8.jpg_720x720q80.jpg', inventory: { 'S': { total: 2, rented: 0 }, 'M': { total: 3, rented: 0 }, 'L': { total: 2, rented: 0 } }, rentals: [] },
-            { id: 3, category: 'women', name: 'เสื้อครอปไหมพรม', brand: 'Zara', price: 150, imageUrl: 'https://cdn.pomelofashion.com/img/p/5/7/8/9/3/9/578939.jpg', inventory: { 'S': { total: 5, rented: 0 }, 'M': { total: 5, rented: 0 } }, rentals: [] },
-            { id: 4, category: 'women', name: 'เบลเซอร์ลำลอง', brand: 'H&M', price: 199, imageUrl: 'https://inwfile.com/s-cq/4rzsqw.jpg', inventory: { 'M': { total: 2, rented: 0 }, 'L': { total: 2, rented: 0 } }, rentals: [] },
-            { id: 5, category: 'women', name: 'กระโปรงยาวผ้าซาติน', brand: 'Topshop', price: 180, imageUrl: 'https://laz-img-sg.alicdn.com/p/01f672f4c747b16e89fddba921a4dec2.jpg', inventory: { 'S': { total: 3, rented: 0 }, 'M': { total: 2, rented: 0 } }, rentals: [] },
-            { id: 6, category: 'men', name: 'เสื้อเชิ้ตแขนสั้น', brand: 'Uniqlo', price: 160, imageUrl: 'https://img.lazcdn.com/g/p/c2946a4fb5a5005d4e37c3d2b03f7cb1.jpg_720x720q80.jpg', inventory: { 'M': { total: 5, rented: 0 }, 'L': { total: 5, rented: 0 } }, rentals: [] },
-            { id: 7, category: 'men', name: 'กางเกงชิโน', brand: 'Gap', price: 190, imageUrl: 'https://www.khakibros.com/pub/media/catalog/product/cache/9e987a67928cb5ca42d63dba75e70807/w/e/web_b005-3.jpg', inventory: { 'M': { total: 4, rented: 0 }, 'L': { total: 4, rented: 0 }, 'XL': { total: 2, rented: 0 } }, rentals: [] },
-            { id: 8, category: 'men', name: 'เสื้อฮู้ดดี้', brand: 'Adidas', price: 200, imageUrl: 'https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/162b782baff20aa8a9858edb12cff8444c53b9d7_xxl-1.jpg', inventory: { 'L': { total: 3, rented: 0 }, 'XL': { total: 3, rented: 0 } }, rentals: [] },
-            { id: 9, category: 'men', name: 'กางเกงยีนส์', brand: 'Lee', price: 199, imageUrl: 'https://cdn.shopify.com/s/files/1/0637/1423/0450/files/Mens_Loose.jpg', inventory: { 'M': { total: 4, rented: 0 }, 'L': { total: 3, rented: 0 } }, rentals: [] },
-            { id: 10, category: 'men', name: 'เสื้อโปโล', brand: 'Lacoste', price: 180, imageUrl: 'https://www.phufa.org/wp-content/uploads/2025/09/ext-773.jpg', inventory: { 'M': { total: 5, rented: 0 }, 'L': { total: 5, rented: 0 }, 'XL': { total: 2, rented: 0 } }, rentals: [] },
+            { id: 1, category: 'women', name: 'เดรสสั้นลายดอก', brand: 'Pomelo', price: 190, imageUrl: 'https://img.lazcdn.com/g/p/4145bb1065cf1ab997a392cc67cfbe18.jpg_720x720q80.jpg', inventory: { 's': { total: 3, rented: 0 }, 'm': { total: 3, rented: 0 } }, rentals: [] },
+            { id: 2, category: 'women', name: 'กางเกงยีนส์ขากว้าง', brand: 'Levi\'s', price: 200, imageUrl: 'https://img.lazcdn.com/g/p/45854c6581e9d27e4f863b20752f91a8.jpg_720x720q80.jpg', inventory: { 's': { total: 2, rented: 0 }, 'm': { total: 3, rented: 0 }, 'l': { total: 2, rented: 0 } }, rentals: [] },
+            { id: 3, category: 'women', name: 'เสื้อครอปไหมพรม', brand: 'Zara', price: 150, imageUrl: 'https://cdn.pomelofashion.com/img/p/5/7/8/9/3/9/578939.jpg', inventory: { 's': { total: 5, rented: 0 }, 'm': { total: 5, rented: 0 } }, rentals: [] },
+            { id: 4, category: 'women', name: 'เบลเซอร์ลำลอง', brand: 'H&M', price: 199, imageUrl: 'https://inwfile.com/s-cq/4rzsqw.jpg', inventory: { 'm': { total: 2, rented: 0 }, 'l': { total: 2, rented: 0 } }, rentals: [] },
+            { id: 5, category: 'women', name: 'กระโปรงยาวผ้าซาติน', brand: 'Topshop', price: 180, imageUrl: 'https://laz-img-sg.alicdn.com/p/01f672f4c747b16e89fddba921a4dec2.jpg', inventory: { 's': { total: 3, rented: 0 }, 'm': { total: 2, rented: 0 } }, rentals: [] },
+            { id: 6, category: 'men', name: 'เสื้อเชิ้ตแขนสั้น', brand: 'Uniqlo', price: 160, imageUrl: 'https://img.lazcdn.com/g/p/c2946a4fb5a5005d4e37c3d2b03f7cb1.jpg_720x720q80.jpg', inventory: { 'm': { total: 5, rented: 0 }, 'l': { total: 5, rented: 0 } }, rentals: [] },
+            { id: 7, category: 'men', name: 'กางเกงชิโน', brand: 'Gap', price: 190, imageUrl: 'https://www.khakibros.com/pub/media/catalog/product/cache/9e987a67928cb5ca42d63dba75e70807/w/e/web_b005-3.jpg', inventory: { 'm': { total: 4, rented: 0 }, 'l': { total: 4, rented: 0 }, 'xl': { total: 2, rented: 0 } }, rentals: [] },
+            { id: 8, category: 'men', name: 'เสื้อฮู้ดดี้', brand: 'Adidas', price: 200, imageUrl: 'https://d29c1z66frfv6c.cloudfront.net/pub/media/catalog/product/zoom/162b782baff20aa8a9858edb12cff8444c53b9d7_xxl-1.jpg', inventory: { 'l': { total: 3, rented: 0 }, 'xl': { total: 3, rented: 0 } }, rentals: [] },
+            { id: 9, category: 'men', name: 'กางเกงยีนส์', brand: 'Lee', price: 199, imageUrl: 'https://cdn.shopify.com/s/files/1/0637/1423/0450/files/Mens_Loose.jpg', inventory: { 'm': { total: 4, rented: 0 }, 'l': { total: 3, rented: 0 } }, rentals: [] },
+            { id: 10, category: 'men', name: 'เสื้อโปโล', brand: 'Lacoste', price: 180, imageUrl: 'https://www.phufa.org/wp-content/uploads/2025/09/ext-773.jpg', inventory: { 'm': { total: 5, rented: 0 }, 'l': { total: 5, rented: 0 }, 'xl': { total: 2, rented: 0 } }, rentals: [] },
         ];
 
         let loggedInUser = null;
@@ -389,12 +290,11 @@
 
         const userButton = document.getElementById('userButton');
         const userDropdown = document.getElementById('userDropdown');
-        const logoutButton = document.getElementById('logoutButton');
-        const adminLogoutButton = document.getElementById('adminLogoutButton');
         const cartCounter = document.getElementById('cartCounter');
         const checkoutButton = document.getElementById('checkoutButton');
         const emptyCartMsg = document.getElementById('emptyCartMsg');
-        const bankInfoBox = document.getElementById('bankInfo');
+        const searchBar = document.getElementById('searchBar');
+        const searchInput = document.getElementById('searchInput');
         
         const modals = {
             login: document.getElementById('loginModal'),
@@ -406,6 +306,7 @@
             checkout: document.getElementById('checkoutModal'),
             address: document.getElementById('addressModal'),
             thankYou: document.getElementById('thankYouModal'),
+            rentalHistory: document.getElementById('rentalHistoryModal'),
         };
 
         const closeModalButtons = {
@@ -418,6 +319,7 @@
             checkout: document.getElementById('closeCheckout'),
             address: document.getElementById('closeAddress'),
             thankYou: document.getElementById('closeThankYou'),
+            rentalHistory: document.getElementById('closeRentalHistory'),
         };
 
         const openModal = (modalName) => modals[modalName]?.classList.remove('hidden');
@@ -432,10 +334,6 @@
         
         const updateUIForLogout = () => {
             loggedInUser = null;
-            if (isAdminLoggedIn) {
-                isAdminLoggedIn = false;
-                alert('สถานะผู้ดูแลระบบถูกยกเลิก');
-            }
             userButton.textContent = 'เข้าสู่ระบบ';
             userDropdown.classList.add('hidden');
         };
@@ -446,59 +344,42 @@
             emptyCartMsg.style.display = cart.length === 0 ? 'block' : 'none';
         };
 
-        const calculatePrice = (basePrice, days) => {
-             const baseDays = 3;
-             const pricePerDay = basePrice / baseDays;
-             return Math.round(pricePerDay * days);
-        };
-
-        const renderProducts = (containerId, category) => {
+        const renderProducts = (productsToRender, containerId) => {
             const productListEl = document.getElementById(containerId);
             if (!productListEl) return;
             productListEl.innerHTML = '';
             
-            const productsToRender = productDatabase.filter(p => p.category === category);
+            if (productsToRender.length === 0) {
+                productListEl.innerHTML = `<p class="text-center text-gray-500 col-span-full">ไม่พบสินค้าที่ตรงกับการค้นหา</p>`;
+                return;
+            }
 
             productsToRender.forEach(product => {
-                let availableSizes = Object.keys(product.inventory).filter(size => product.inventory[size].total > product.inventory[size].rented);
-                const isCompletelyOutOfStock = availableSizes.length === 0;
-
+                const isCompletelyOutOfStock = Object.values(product.inventory).every(inv => inv.total <= inv.rented);
+                
                 const newProductCard = document.createElement('div');
                 newProductCard.className = `bg-white rounded-xl shadow-lg overflow-hidden card-hover product-card ${isCompletelyOutOfStock ? 'opacity-50' : ''}`;
                 
-                let sizeOptions = availableSizes.map(size => `<option value="${size}">${size.toUpperCase()}</option>`).join('');
+                // NEW: Logic for displaying all sizes with disabled state
+                let sizeOptions = Object.keys(product.inventory).map(size => {
+                    const isAvailable = product.inventory[size].total > product.inventory[size].rented;
+                    return `<option value="${size}" ${!isAvailable ? 'disabled' : ''}>
+                                ${size.toUpperCase()} ${!isAvailable ? '(หมด)' : ''}
+                            </option>`;
+                }).join('');
 
                 newProductCard.innerHTML = `
-                    <div class="h-64 flex items-center justify-center overflow-hidden relative bg-gray-200">
-                         <img src="${product.imageUrl}" class="w-full h-full object-cover" alt="${product.name}" loading="lazy">
-                         ${isCompletelyOutOfStock ? `<div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"><span class="text-white font-bold text-xl">สินค้าหมด</span></div>` : ''}
-                    </div>
+                    <div class="h-64 flex items-center justify-center overflow-hidden relative bg-gray-200"><img src="${product.imageUrl}" class="w-full h-full object-cover" alt="${product.name}" loading="lazy">${isCompletelyOutOfStock ? `<div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"><span class="text-white font-bold text-xl">สินค้าหมด</span></div>` : ''}</div>
                     <div class="p-6">
-                        <h4 class="font-semibold text-lg mb-2 product-name">${product.name}</h4>
-                        <p class="text-gray-600 text-sm mb-3 product-details">แบรนด์ ${product.brand}</p>
-                        <div class="mb-2">
-                            <label class="block text-gray-700 text-sm font-semibold mb-1">เลือกไซส์</label>
-                            <select class="w-full px-3 py-2 border border-gray-300 rounded-lg productSize" ${isCompletelyOutOfStock ? 'disabled' : ''}>
-                                ${sizeOptions ? sizeOptions : '<option>สินค้าหมด</option>'}
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label class="block text-gray-700 text-sm font-semibold mb-1">วันที่เช่าเริ่ม</label>
-                            <input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-lg rentStartDate" ${isCompletelyOutOfStock ? 'disabled' : ''}>
-                        </div>
-                        <div class="mb-2">
-                            <label class="block text-gray-700 text-sm font-semibold mb-1">จำนวนวันเช่า</label>
-                            <input type="number" min="1" value="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg rentDays" ${isCompletelyOutOfStock ? 'disabled' : ''}>
-                        </div>
+                        <h4 class="font-semibold text-lg mb-2 product-name">${product.name}</h4><p class="text-gray-600 text-sm mb-3 product-details">แบรนด์ ${product.brand}</p>
+                        <div class="mb-2"><label class="block text-gray-700 text-sm font-semibold mb-1">เลือกไซส์</label><select class="w-full px-3 py-2 border border-gray-300 rounded-lg productSize" ${isCompletelyOutOfStock ? 'disabled' : ''}>${sizeOptions}</select></div>
+                        <div class="mb-2"><label class="block text-gray-700 text-sm font-semibold mb-1">วันที่เช่าเริ่ม</label><input type="date" class="w-full px-3 py-2 border border-gray-300 rounded-lg rentStartDate" ${isCompletelyOutOfStock ? 'disabled' : ''}></div>
+                        <div class="mb-2"><label class="block text-gray-700 text-sm font-semibold mb-1">จำนวนวันเช่า</label><input type="number" min="1" value="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg rentDays" ${isCompletelyOutOfStock ? 'disabled' : ''}></div>
                         <div class="flex items-center justify-between mt-2">
-                            <div>
-                                <span class="text-2xl font-bold text-purple-600 product-price" data-base-price="${product.price}">฿${product.price}</span>
-                                <span class="text-sm text-gray-500 price-duration">/3 วัน</span>
-                            </div>
-                            <button data-product-id="${product.id}" class="rent-button bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400" ${isCompletelyOutOfStock ? 'disabled' : ''}>เช่า</button>
+                            <div><span class="text-2xl font-bold text-purple-600 product-price" data-base-price="${product.price}">฿${product.price}</span><span class="text-sm text-gray-500 price-duration">/3 วัน</span></div>
+                            <button data-product-id="${product.id}" class="rent-button bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 disabled:bg-gray-400" ${isCompletelyOutOfStock ? 'disabled' : ''}>เช่า</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
                 productListEl.appendChild(newProductCard);
             });
         };
@@ -507,24 +388,12 @@
             const container = document.getElementById('cartItemsContainer');
             const cartTotalEl = document.getElementById('cartTotal');
             container.innerHTML = ''; 
-
-            if (cart.length === 0) {
-                 container.appendChild(emptyCartMsg);
-            }
+            if (cart.length === 0) { container.appendChild(emptyCartMsg); }
             let total = 0;
             cart.forEach((item, index) => {
                 const itemEl = document.createElement('div');
                 itemEl.className = 'flex justify-between items-center mb-2 p-2 border-b';
-                itemEl.innerHTML = `
-                    <div>
-                        <p class="font-semibold">${item.name} (ไซส์ ${item.size.toUpperCase()})</p>
-                        <p class="text-sm text-gray-500">วันที่: ${item.startDate}, ${item.days} วัน</p>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="font-semibold mr-4">฿${item.price}</span>
-                        <button data-index="${index}" class="remove-from-cart text-red-500 hover:text-red-700 text-2xl">&times;</button>
-                    </div>
-                `;
+                itemEl.innerHTML = `<div><p class="font-semibold">${item.name} (ไซส์ ${item.size.toUpperCase()})</p><p class="text-sm text-gray-500">วันที่: ${item.startDate}, ${item.days} วัน</p></div><div class="flex items-center"><span class="font-semibold mr-4">฿${item.price}</span><button data-index="${index}" class="remove-from-cart text-red-500 hover:text-red-700 text-2xl">&times;</button></div>`;
                 container.appendChild(itemEl);
                 total += item.price;
             });
@@ -537,22 +406,25 @@
             const rentedListEl = document.getElementById('rentedList');
             stockListEl.innerHTML = '';
             rentedListEl.innerHTML = '';
-
             let allRentals = [];
-
             productDatabase.forEach(p => {
                 const stockItemEl = document.createElement('div');
-                stockItemEl.className = 'p-3 border rounded-md bg-gray-50';
-                let stockDetails = Object.entries(p.inventory).map(([size, data]) => {
-                    return `${size.toUpperCase()}: ${data.total} ตัว (เช่าอยู่ ${data.rented})`;
-                }).join(', ');
-                stockItemEl.innerHTML = `<p class="font-semibold">${p.name}</p><p class="text-xs">${stockDetails}</p>`;
+                stockItemEl.className = 'p-3 border rounded-md bg-gray-50 flex justify-between items-center';
+                let stockDetails = Object.entries(p.inventory).map(([size, data]) => `${size.toUpperCase()}: ${data.total} ตัว (เช่าอยู่ ${data.rented})`).join(', ');
+                
+                // NEW: Added delete button
+                stockItemEl.innerHTML = `
+                    <div>
+                        <p class="font-semibold">${p.name}</p>
+                        <p class="text-xs">${stockDetails}</p>
+                    </div>
+                    <button data-product-id="${p.id}" class="remove-product-btn text-red-500 hover:text-red-700 font-bold text-xl px-2">&times;</button>
+                `;
                 stockListEl.appendChild(stockItemEl);
-
                 p.rentals.forEach(rental => allRentals.push({productName: p.name, ...rental}));
             });
-
             if (allRentals.length > 0) {
+                allRentals.sort((a, b) => new Date(a.rentUntil) - new Date(b.rentUntil));
                 allRentals.forEach(r => {
                     const rentedItemEl = document.createElement('div');
                     rentedItemEl.className = 'p-3 border rounded-md bg-gray-50';
@@ -560,102 +432,99 @@
                     rentedListEl.appendChild(rentedItemEl);
                 });
             }
-
             if (stockListEl.innerHTML === '') stockListEl.innerHTML = '<p class="text-gray-400">ไม่มีสินค้าในสต็อก</p>';
             if (rentedListEl.innerHTML === '') rentedListEl.innerHTML = '<p class="text-gray-400">ไม่มีสินค้าถูกเช่า</p>';
         };
 
-        document.getElementById('adminButton').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (isAdminLoggedIn) {
-                renderAdminDashboard();
-                openModal('adminDashboard');
-            } else {
-                openModal('adminLogin');
+        const renderRentalHistory = () => {
+            const container = document.getElementById('rentalHistoryContainer');
+            container.innerHTML = '';
+            if (!loggedInUser) return;
+            const userRentals = [];
+            productDatabase.forEach(product => {
+                product.rentals.forEach(rental => {
+                    if (rental.rentedBy === loggedInUser.name) {
+                        userRentals.push({ productName: product.name, imageUrl: product.imageUrl, ...rental });
+                    }
+                });
+            });
+            if (userRentals.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center">คุณยังไม่มีประวัติการเช่า</p>';
+                return;
             }
-        });
+            userRentals.forEach(rental => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'flex items-center p-3 border rounded-lg bg-gray-50';
+                itemEl.innerHTML = `<img src="${rental.imageUrl}" alt="${rental.productName}" class="w-16 h-16 object-cover rounded-md mr-4"><div><p class="font-semibold">${rental.productName} (ไซส์ ${rental.size.toUpperCase()})</p><p class="text-sm text-gray-600">กำหนดคืน: ${rental.rentUntil}</p></div>`;
+                container.appendChild(itemEl);
+            });
+        };
 
-        adminLogoutButton.addEventListener('click', () => {
+        const displayAllProducts = () => {
+             renderProducts(productDatabase.filter(p => p.category === 'women'), 'women-product-list');
+             renderProducts(productDatabase.filter(p => p.category === 'men'), 'men-product-list');
+        }
+
+        // --- Event Listeners ---
+        document.getElementById('adminButton').addEventListener('click', () => {
+            if (isAdminLoggedIn) { renderAdminDashboard(); openModal('adminDashboard'); } 
+            else { openModal('adminLogin'); }
+        });
+        document.getElementById('adminLogoutButton').addEventListener('click', () => {
             isAdminLoggedIn = false;
             closeModal('adminDashboard');
             alert('ออกจากระบบผู้ดูแลสำเร็จ');
         });
-
-        document.getElementById('userButton').addEventListener('click', (e) => {
-             e.preventDefault();
+        userButton.addEventListener('click', () => {
              if (!loggedInUser) openModal('login');
+             else userDropdown.classList.toggle('hidden');
         });
-
-        document.getElementById('editProfileLink').addEventListener('click', (e) => { e.preventDefault(); openModal('editProfile'); });
-        document.getElementById('cartButton').addEventListener('click', (e) => { e.preventDefault(); openModal('cart'); });
-        
+        document.getElementById('editProfileLink').addEventListener('click', (e) => { e.preventDefault(); openModal('editProfile'); userDropdown.classList.add('hidden'); });
+        document.getElementById('cartButton').addEventListener('click', () => { renderCartItems(); openModal('cart'); });
+        document.getElementById('orderHistoryLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            renderRentalHistory();
+            openModal('rentalHistory');
+            userDropdown.classList.add('hidden');
+        });
         Object.keys(closeModalButtons).forEach(key => {
-            if (key === 'thankYou') {
-                closeModalButtons[key]?.addEventListener('click', () => {
-                    closeModal('thankYou');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            } else {
-                closeModalButtons[key]?.addEventListener('click', () => closeModal(key));
-            }
+            closeModalButtons[key]?.addEventListener('click', () => closeModal(key));
         });
-
         Object.values(modals).forEach(modal => {
             modal?.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
         });
-        
-        userButton.addEventListener('click', () => {
-            if (loggedInUser) userDropdown.classList.toggle('hidden');
-        });
-
-        logoutButton.addEventListener('click', (e) => { e.preventDefault(); alert('ออกจากระบบสำเร็จ!'); updateUIForLogout(); });
-
+        document.getElementById('logoutButton').addEventListener('click', (e) => { e.preventDefault(); alert('ออกจากระบบสำเร็จ!'); updateUIForLogout(); });
         document.getElementById('showRegister').addEventListener('click', (e) => { e.preventDefault(); closeModal('login'); openModal('register'); });
         document.getElementById('showLogin').addEventListener('click', (e) => { e.preventDefault(); closeModal('register'); openModal('login'); });
 
+        // --- Form Submissions & Actions ---
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const loginEmail = document.getElementById('loginEmail').value;
-            const loginPass = document.getElementById('loginPassword').value;
-
-            const foundUser = userDatabase.find(user => user.email === loginEmail);
-
-            if (foundUser && foundUser.password === loginPass) {
-                alert(`ยินดีต้อนรับคุณ ${foundUser.name}!`);
-                updateUIForLogin(foundUser);
-            } else {
-                alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
-            }
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            const foundUser = userDatabase.find(user => user.email === email && user.password === pass);
+            if (foundUser) { alert(`ยินดีต้อนรับคุณ ${foundUser.name}!`); updateUIForLogin(foundUser); } 
+            else { alert('อีเมลหรือรหัสผ่านไม่ถูกต้อง'); }
         });
-
         document.getElementById('registerForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const registerName = document.getElementById('registerName').value;
-            const registerEmail = document.getElementById('registerEmail').value;
-            const registerPassword = document.getElementById('registerPassword').value;
-
-            const existingUser = userDatabase.find(user => user.email === registerEmail);
-
-            if (existingUser) {
-                alert('อีเมลนี้ถูกใช้งานแล้ว กรุณาใช้อีเมลอื่น');
-                return;
-            }
-
-            const newUser = { name: registerName, email: registerEmail, password: registerPassword };
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const pass = document.getElementById('registerPassword').value;
+            if (userDatabase.find(user => user.email === email)) { alert('อีเมลนี้ถูกใช้งานแล้ว'); return; }
+            const newUser = { name, email, password: pass };
             userDatabase.push(newUser);
-            
-            alert(`สมัครสมาชิกสำเร็จ, ยินดีต้อนรับคุณ ${registerName}!`);
+            alert(`สมัครสมาชิกสำเร็จ, ยินดีต้อนรับคุณ ${name}!`);
             updateUIForLogin(newUser);
         });
-
         document.getElementById('editProfileForm').addEventListener('submit', (e) => {
             e.preventDefault();
             loggedInUser.name = document.getElementById('editName').value;
+            loggedInUser.email = document.getElementById('editEmail').value;
             userButton.textContent = loggedInUser.name;
             alert('บันทึกข้อมูลโปรไฟล์สำเร็จ!');
             closeModal('editProfile');
         });
-
         document.getElementById('adminLoginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const user = document.getElementById('adminUsername').value;
@@ -666,17 +535,58 @@
                 closeModal('adminLogin');
                 renderAdminDashboard();
                 openModal('adminDashboard');
-            } else {
-                alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+            } else { alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'); }
+        });
+        
+        document.getElementById('addProductForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newProduct = {
+                name: document.getElementById('newProductName').value,
+                brand: document.getElementById('newProductBrand').value,
+                category: document.getElementById('newProductCategory').value,
+                price: parseInt(document.getElementById('newProductPrice').value),
+                imageUrl: document.getElementById('newProductImageUrl').value,
+                inventory: {},
+                rentals: []
+            };
+            const inventoryString = document.getElementById('newProductInventory').value;
+            try {
+                const pairs = inventoryString.split(',');
+                pairs.forEach(pair => {
+                    const [size, total] = pair.split(':');
+                    if (size && total && !isNaN(parseInt(total))) {
+                        newProduct.inventory[size.trim().toLowerCase()] = { total: parseInt(total), rented: 0 };
+                    }
+                });
+                 if (Object.keys(newProduct.inventory).length === 0) throw new Error();
+            } catch (error) { alert('รูปแบบไซส์และจำนวนไม่ถูกต้อง กรุณาใช้รูปแบบ: S:5, M:10'); return; }
+            newProduct.id = productDatabase.length > 0 ? Math.max(...productDatabase.map(p => p.id)) + 1 : 1;
+            productDatabase.push(newProduct);
+            alert(`เพิ่มสินค้า '${newProduct.name}' เรียบร้อยแล้ว!`);
+            e.target.reset();
+            renderAdminDashboard();
+            displayAllProducts();
+        });
+        
+        // NEW: Event listener for removing a product from Admin Dashboard
+        document.getElementById('adminDashboardModal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-product-btn')) {
+                const productId = parseInt(e.target.dataset.productId);
+                const productIndex = productDatabase.findIndex(p => p.id === productId);
+                if (productIndex > -1) {
+                    const productName = productDatabase[productIndex].name;
+                    if (confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบสินค้า '${productName}' ออกจากระบบ?`)) {
+                        productDatabase.splice(productIndex, 1);
+                        alert(`ลบสินค้า '${productName}' เรียบร้อยแล้ว`);
+                        renderAdminDashboard();
+                        displayAllProducts();
+                    }
+                }
             }
         });
         
-        checkoutButton.addEventListener('click', () => {
-            if (!loggedInUser) {
-                alert('กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ');
-                openModal('login');
-                return;
-            }
+        document.getElementById('checkoutButton').addEventListener('click', () => {
+            if (!loggedInUser) { alert('กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ'); openModal('login'); return; }
             if (cart.length > 0) {
                 const summaryEl = document.getElementById('checkoutSummary');
                 const total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -688,36 +598,25 @@
 
         document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
             radio.addEventListener('change', (e) => {
-                bankInfoBox.classList.toggle('hidden', e.target.value !== 'transfer');
+                document.getElementById('bankInfo').classList.toggle('hidden', e.target.value !== 'transfer');
             });
         });
 
-        document.getElementById('paymentForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            closeModal('checkout');
-            openModal('address');
-        });
-
+        document.getElementById('paymentForm').addEventListener('submit', (e) => { e.preventDefault(); closeModal('checkout'); openModal('address'); });
         document.getElementById('addressForm').addEventListener('submit', (e) => {
             e.preventDefault();
             cart.forEach(cartItem => {
                 const product = productDatabase.find(p => p.id === cartItem.id);
                 if (product && product.inventory[cartItem.size]) {
                     product.inventory[cartItem.size].rented++;
-                    let returnDate = new Date(cartItem.startDate);
+                    let returnDate = new Date();
                     returnDate.setDate(returnDate.getDate() + cartItem.days);
-                    product.rentals.push({
-                        rentedBy: loggedInUser.name,
-                        size: cartItem.size,
-                        rentUntil: returnDate.toLocaleDateString('th-TH')
-                    });
+                    product.rentals.push({ rentedBy: loggedInUser.name, size: cartItem.size, rentUntil: returnDate.toLocaleDateString('th-TH') });
                 }
             });
-
             cart = [];
             renderCartItems();
-            renderProducts('women-product-list', 'women');
-            renderProducts('men-product-list', 'men');
+            displayAllProducts();
             closeModal('address');
             openModal('thankYou');
         });
@@ -730,38 +629,23 @@
                     const durationEl = card.querySelector('.price-duration');
                     const basePrice = parseInt(priceEl.dataset.basePrice);
                     const days = parseInt(e.target.value) || 1;
-                    const newPrice = calculatePrice(basePrice, days);
+                    const newPrice = Math.round((basePrice / 3) * days);
                     priceEl.textContent = `฿${newPrice}`;
                     durationEl.textContent = `/${days} วัน`;
                 }
             });
-
             container.addEventListener('click', (e) => {
                 if (e.target.classList.contains('rent-button')) {
-                    if (!loggedInUser) {
-                        alert('กรุณาเข้าสู่ระบบก่อนทำการเช่า');
-                        openModal('login');
-                        return;
-                    }
+                    if (!loggedInUser) { alert('กรุณาเข้าสู่ระบบก่อนทำการเช่า'); openModal('login'); return; }
                     const card = e.target.closest('.product-card');
                     const productId = parseInt(e.target.dataset.productId);
                     const product = productDatabase.find(p => p.id === productId);
-
                     const selectedSize = card.querySelector('.productSize').value;
-                    if (!selectedSize || selectedSize === 'สินค้าหมด') {
-                        alert('กรุณาเลือกไซส์ที่ว่าง');
-                        return;
-                    }
-                    
                     const startDate = card.querySelector('.rentStartDate').value;
-                    if (!startDate) {
-                        alert('กรุณาเลือกวันที่เริ่มเช่า');
-                        return;
-                    }
+                    if (!selectedSize || card.querySelector('.productSize').options[card.querySelector('.productSize').selectedIndex].disabled) { alert('กรุณาเลือกไซส์ที่ว่าง'); return; }
+                    if (!startDate) { alert('กรุณาเลือกวันที่เริ่มเช่า'); return; }
                     const days = parseInt(card.querySelector('.rentDays').value);
-                    const priceText = card.querySelector('.product-price').textContent;
-                    const price = parseInt(priceText.replace('฿', ''));
-
+                    const price = parseInt(card.querySelector('.product-price').textContent.replace('฿', ''));
                     cart.push({ id: productId, name: product.name, size: selectedSize, startDate, days, price });
                     alert(`เพิ่ม '${product.name} (ไซส์ ${selectedSize.toUpperCase()})' ลงในตะกร้าแล้ว`);
                     renderCartItems();
@@ -776,8 +660,20 @@
             }
         });
 
-        renderProducts('women-product-list', 'women');
-        renderProducts('men-product-list', 'men');
+        document.getElementById('searchButton').addEventListener('click', () => {
+            searchBar.classList.toggle('hidden');
+            searchInput.focus();
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            if (searchTerm === '') { displayAllProducts(); return; }
+            const filteredProducts = productDatabase.filter(p => p.name.toLowerCase().includes(searchTerm) || p.brand.toLowerCase().includes(searchTerm));
+            renderProducts(filteredProducts.filter(p => p.category === 'women'), 'women-product-list');
+            renderProducts(filteredProducts.filter(p => p.category === 'men'), 'men-product-list');
+        });
+       
+        displayAllProducts();
         updateCartCounter();
     });
     </script>
